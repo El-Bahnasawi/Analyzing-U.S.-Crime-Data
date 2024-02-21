@@ -1,0 +1,18 @@
+{
+    "age": {"1": "12-17", "2": "18-24", "3": "25-34", "4": "35-49", "5": "50-64", "6": "65 or older"},
+    "sex": {"1": "Male", "2": "Female"},
+    "hispanic-origin": {"1": "Hispanic", "2": "Non-Hispanic", "98": "Residue"},
+    "race": {"1": "White", "2": "Black", "3": "American Indian/Alaska Native", "4": "Asian/Native Hawaiian/Other Pacific Islander", "5": "More than one race"},
+    "race-ethnicity": {"1": "Non-Hispanic white", "2": "Non-Hispanic black", "3": "Non-Hispanic American Indian/Alaska Native", "4": "Non-Hispanic Asian/Native Hawaiian/Other Pacific Islander", "5": "Non-Hispanic more than one race", "6": "Hispanic"},
+    "annual-household-income": {"1": "Less than $7,500", "2": "$7,500 to $14,999", "3": "$15,000 to $24,999", "4": "$25,000 to $34,999", "5": "$35,000 to $49,999", "6": "$50,000 to $74,999", "7": "$75,000 or more", "98": "Unknown"},
+    "annual-household-income-imputed": {"-1": "Less than $25,000", "1": "$25,000 to $49,999", "2": "$50,000 to $99,999", "3": "$100,000 to $199,999", "4": "$200,000 or more"},
+    "marital-status": {"1": "Never married", "2": "Married", "3": "Widowed", "4": "Divorced", "5": "Separated", "98": "Residue"},
+    "population-size": {"-1": "Invalid until 1995 Q3", "0": "Not a place", "1": "Under 100,000", "2": "100,000-249,999", "3": "250,000-499,999", "4": "500,000-999,999", "5": "1 million or more"},
+    "region": {"-1": "Invalid until 1995 Q3", "1": "Northeast", "2": "Midwest", "3": "South", "4": "West"},
+    "household-msa": {"1": "Principal city within MSA", "2": "Not part of principal city within MSA", "3": "Outside MSA"},
+    "household-locale": {"-1": "Invalid until 2020 Q1", "1": "Urban", "2": "Suburban", "3": "Rural"},
+    "education-level": {"1": "No schooling", "2": "Grade school", "3": "Middle school", "4": "High school", "5": "College", "98": "Residue"},
+    "education-level-2": {"-1": "Invalid until 2003 Q1", "1": "No schooling", "2": "Grade school", "3": "Middle school", "4": "Some high school", "5": "High school graduate", "6": "Some college and associate degree", "7": "Bachelor’s degree", "8": "Advanced degree", "98": "Residue"},
+    "veteran-status": {"-2": "Invalid until 2017 Q1", "-1": "Under age 18", "2": "Not a veteran", "3": "Veteran", "8": "Residue"},
+    "citizenship-status": {"-1": "Invalid until 2017 Q1", "1": "Born U.S. citizen", "2": "Naturalized citizen", "3": "Non-U.S. Citizen", "8": "Residue"}
+}
