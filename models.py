@@ -5,6 +5,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.decomposition import PCA
 from umap.umap_ import UMAP
+import xgboost as xgb
+from sklearn.model_selection import cross_val_score
 
 
 def model_1(X_train: pd.DataFrame, y_train: pd.DataFrame):
@@ -80,3 +82,33 @@ def model_3(X_train: pd.DataFrame, y_train: pd.DataFrame):
     random_search.fit(X_train, y_train)
 
     return random_search
+
+def model_4(X_train, X_test, y_train, y_test):
+    # Train a model using Random Forest
+    clf = RandomForestClassifier(max_depth=4, n_estimators=50, random_state=42)
+    clf.fit(X_train, y_train)
+
+    # Evaluate model performance
+    accuracy_train = clf.score(X_train, y_train)
+    cv_scores = cross_val_score(clf, X_test, y_test, cv=5)
+    return accuracy_train, cv_scores
+
+def model_5(X_train, X_test, y_train, y_test):
+    
+    xgb_classifier = xgb.XGBClassifier(n_estimators=12, 
+                                    objective='binary:logistic', 
+                                    tree_method='hist', 
+                                    eta=0.15,
+                                    max_depth=1,
+                                    enable_categorical=True, 
+                                    random_state=42,
+                                    reg_alpha = 3,
+                                    reg_lambda = 3)  
+
+    # Fit the model on the entire training set
+    xgb_classifier.fit(X_train, y_train)
+
+    # Evaluate model performance
+    accuracy_train = xgb_classifier.score(X_train, y_train)
+    cv_scores = cross_val_score(xgb_classifier, X_test, y_test, cv=5)
+    return accuracy_train, cv_scores

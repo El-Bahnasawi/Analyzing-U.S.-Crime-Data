@@ -117,3 +117,63 @@ def handle_dataframe(df: pd.DataFrame, mappings_file: str, new_cols_dict: dict) 
         df_copy[column] = df_copy[column].map(mapping)
 
     return df_copy
+
+
+from sklearn.model_selection import train_test_split
+from sklearn.feature_selection import RFE
+from sklearn.ensemble import RandomForestClassifier
+from statsmodels.stats.outliers_influence import variance_inflation_factor 
+import pandas as pd
+from operator import itemgetter
+
+def select_features_with_rfe(X_train, y_train, n_features=40):
+    # Initialize the RandomForestClassifier
+    clf = RandomForestClassifier(random_state=42)
+
+    # Initialize Recursive Feature Elimination (RFE) with desired parameters
+    rfe = RFE(estimator=clf, n_features_to_select=n_features)
+
+    # Fit RFE to the training data
+    rfe.fit(X_train, y_train)
+
+    # Get the feature names
+    features = X_train.columns.tolist()
+
+    # Select the features ranked 1 by RFE
+    selected_features = [feature for rank, feature in sorted(zip(rfe.ranking_, features), key=itemgetter(0)) if rank == 1]
+
+    return selected_features
+
+def calculate_vif_and_remove_features(X_train, X_test, selected_features, threshold=5):
+    # VIF dataframe 
+    vif_data = pd.DataFrame() 
+    vif_data["feature"] = selected_features
+    
+    # calculating VIF for each feature 
+    vif_data["VIF"] = [variance_inflation_factor(X_train[selected_features].values, i) 
+                            for i in range(len(selected_features))] 
+    
+    # Remove features with VIF greater than threshold
+    temp = vif_data[vif_data.VIF <= threshold].reset_index(drop=True)["feature"].tolist()
+    if 'recidivism_within_3years' in temp:
+        temp.remove('recidivism_within_3years')
+    X_features = temp
+    
+    # Subset features in train and test datasets
+    X_train = X_train[X_features]
+    X_test = X_test[X_features]
+
+    return X_train, X_test
+
+def prepare_data_using_feature_selection_and_vif(X, y):
+    # Split the data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
+
+    # Select features using RFE
+    selected_features = select_features_with_rfe(X_train, y_train)
+
+    # Calculate VIF and remove features
+    X_train, X_test = calculate_vif_and_remove_features(X_train, X_test, selected_features)
+
+    return X_train, X_test, y_train, y_test
+
