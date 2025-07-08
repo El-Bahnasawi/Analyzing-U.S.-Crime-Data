@@ -1,5 +1,3 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
 ### Project Overview 📝
 
 This repository contains two separate notebooks focusing on exploratory data analysis (EDA) and regression analysis using machine learning (ML) models.
